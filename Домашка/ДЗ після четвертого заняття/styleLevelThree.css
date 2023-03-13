@@ -1,0 +1,100 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+body {
+    background-color: black;
+}
+.main {
+    position: relative;
+    width: 340px;
+    height: 320px;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(50%);
+    background-color: white;
+}
+.square {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    animation: square 4s linear infinite normal running 0s none;
+}
+@keyframes square {
+    0%{
+        left: 5px;
+        bottom: 10px;
+        background-color: blue;
+    }
+    12.5% {
+        left: 105px;
+        bottom: 10px;
+        background-color: rgb(7, 7, 67);
+    }
+    25% {
+        left: 205px;
+        bottom: 10px;
+        background-color: green;
+    }
+    37.5% {
+        left: 205px;
+        bottom: 110px;
+        background-color: greenyellow;
+    }
+    50% {
+        left: 205px;
+        bottom: 210px;
+        background-color: yellow;
+    }
+    62.5% {
+        left: 105px;
+        bottom: 210px;
+        background-color: orange;
+    }
+    75% {
+        left: 5px;
+        bottom: 210px;
+        background-color: red;
+    }    
+    87.5% {
+        bottom: 110px;
+        left: 5px;
+        background-color: rgb(71, 3, 68);
+    }
+    100% {
+        left: 5px;
+        bottom: 10px;
+        background-color: blue;
+    }
+}

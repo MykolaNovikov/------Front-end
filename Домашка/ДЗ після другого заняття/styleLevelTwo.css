@@ -1,0 +1,15 @@
+.list a[href^='https://'] {
+    color: #f00 ;
+}
+ 
+.list ul li a[href^='https://'] {
+    color: #ff8d00 ;
+}
+
+ul + p {
+    font-size: 26px ;
+}
+
+a[title='youtube'] {
+    border: 1px solid #067b09 ;
+}
