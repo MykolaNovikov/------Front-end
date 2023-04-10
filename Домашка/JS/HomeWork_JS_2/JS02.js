@@ -40,7 +40,7 @@
 
     result = money * rate ;
 
-    alert ( 'При обміні ' + money + ' доларів Ви отримаєте' + result.toFixed(2) + ' гривень' )
+    alert ( 'При обміні ' + money + ' доларів Ви отримаєте ' + result.toFixed(2) + ' гривень' )
 
 }
 
