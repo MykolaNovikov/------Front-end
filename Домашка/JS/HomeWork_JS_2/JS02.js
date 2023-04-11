@@ -60,12 +60,13 @@
 // Number: flats 
 {
 
-let numberOfFloors = prompt ('Скільки поверхів у будинку ?');
-let numberOfApartmentsPerFloor = prompt ('Скільки квартир на поверсі ?');
-let numberOfTheDesiredApartment = prompt ('Введіть номер потрібної квартири');
-let entranceNumber = Math.floor((numberOfTheDesiredApartment - 1) / (numberOfFloors * numberOfApartmentsPerFloor) + 1);
-let floorNumber = Math.floor( ((numberOfTheDesiredApartment - 1) - (numberOfFloors * numberOfApartmentsPerFloor * (entranceNumber - 1))) / numberOfApartmentsPerFloor ) + 1;
-
-alert ( 'Потрібна Вам квартира знаходиться в ' + entranceNumber + ' під\'їзді на ' + floorNumber + ' поверсі') ;
-
-}
+    let numberOfFloors = prompt ('Скільки поверхів у будинку ?');
+    let numberOfApartmentsPerFloor = prompt ('Скільки квартир на поверсі ?');
+    let numberOfTheDesiredApartment = prompt ('Введіть номер потрібної квартири');
+    let entranceNumber = Math.floor((numberOfTheDesiredApartment - 1) / (numberOfFloors * numberOfApartmentsPerFloor) + 1);
+    let remainderFromDivision = ( numberOfTheDesiredApartment -1 ) % (numberOfFloors * numberOfApartmentsPerFloor);
+    let floorNumber = Math.floor (remainderFromDivision / numberOfApartmentsPerFloor) + 1;
+    
+    alert ( 'Потрібна Вам квартира знаходиться в ' + entranceNumber + ' під\'їзді на ' + floorNumber + ' поверсі') ;
+    
+    }
