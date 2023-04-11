@@ -47,9 +47,9 @@
 // Number: RGB
 
 {
-    const red = ( + prompt ( 'введіть значення насищеності червоного кольору . Від 17 до 255 ' )).toString(16);
-    const green = ( + prompt ( 'введіть значення насищеності зеленого кольору . Від 17 до 255 ' )).toString(16);
-    const blue = ( + prompt ( 'введіть значення насищеності синього кольору . Від 17 до 255 ' )).toString(16);
+    const red = ( + prompt ( 'введіть значення насищеності червоного кольору .' )).toString(16).padStart(2, '0');
+    const green = ( + prompt ( 'введіть значення насищеності зеленого кольору .' )).toString(16).padStart(2, '0');
+    const blue = ( + prompt ( 'введіть значення насищеності синього кольору .' )).toString(16).padStart(2, '0');
 
     hex = '#' + red + green + blue;
 
