@@ -79,3 +79,10 @@
         alert(result);
     }
    
+    // String: youtube 
+
+    const  youTube = /https:\/\/(?:youtu\.be\/|(?:[a-z]{2,3}\.)?youtube\.com\/watch(?:\?|#\!)v=)([\w-]{11}).*/gi;
+    let str = prompt('Вставте посилання на бажанне відео з ютубу');
+    let found = str.match(youTube);
+    let http = found [1];
+    document.write('<iframe width="560" height="315" src="https://www.youtube.com/embed/ ${http}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>')
