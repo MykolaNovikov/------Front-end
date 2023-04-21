@@ -425,4 +425,6 @@ if (yourChoouse === 'Scissors'){
     }
     console.log(computer) // для чистоти результату
 }
+else 
+alert ('Ви ввели не правильну назву завдання')
 }
