@@ -65,28 +65,28 @@
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 50')
     }
     let whiteness = +prompt('Введіть ваш ваш охвал талії');
-    if (whiteness === 63 || whiteness === 64 || whiteness === 65) {
+    if (whiteness >= 63 && whiteness <= 65) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 38')
     }
-    if (whiteness === 66 || whiteness === 67 || whiteness === 68 || whiteness === 69) {
+    if (whiteness >= 66 && whiteness <= 69) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 40')
     }
-    if (whiteness === 70 || whiteness === 71 || whiteness === 72 || whiteness === 73 || whiteness === 74) {
+    if (whiteness >= 70 && whiteness <= 74) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 42')
     }
-    if (whiteness === 75 || whiteness === 76 || whiteness === 77 || whiteness === 78) {
+    if (whiteness >= 75 && whiteness <= 78) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 44')
     }
-    if (whiteness === 79 || whiteness === 80 || whiteness === 81 || whiteness === 82 || whiteness === 83) {
+    if (whiteness >= 79 && whiteness <= 83) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 46')
     }
-    if (whiteness === 84 || whiteness === 85 || whiteness === 86 || whiteness === 87 || whiteness === 88 || whiteness === 89) {
+    if (whiteness >= 84 && whiteness <= 89) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 48')
     }
-    if (whiteness === 90 || whiteness === 91 || whiteness === 92 || whiteness === 93 || whiteness === 94) {
+    if (whiteness >= 90 && whiteness <= 94) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 50')
     }
-    if (whiteness === 95 || whiteness === 96 || whiteness === 97) {
+    if (whiteness >= 95 && whiteness <= 97) {
         alert('Ваш розмір в французькій системі розмірів дорівнюватиме 52')
     }
 }
