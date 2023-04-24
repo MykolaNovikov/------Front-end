@@ -39,11 +39,11 @@
 
 {
     let arr = [[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8], [0, 3, 6, 9, 12], [0, 4, 8, 12, 16]];
-    delete arr[0];
-    arr[1] = arr[1].slice(-4);
-    arr[2] = arr[2].slice(-4);
-    arr[3] = arr[3].slice(-4);
-    arr[4] = arr[4].slice(-4);
+    arr[0] = arr[0].slice(5);
+    arr[1] = arr[1].slice(1);
+    arr[2] = arr[2].slice(1);
+    arr[3] = arr[3].slice(1);
+    arr[4] = arr[4].slice(1);
 
     console.log(arr)
 }
@@ -119,7 +119,7 @@
 // Copy
 {
     const arr = [[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8], [0, 3, 6, 9, 12], [0, 4, 8, 12, 16]];
-    const newArr = [...arr];
+    const newArr = JSON.parse(JSON.stringify(arr));
     console.log(newArr)
 }
 
@@ -146,41 +146,22 @@
 
 // Destruct 
 {
-    let user = prompt('Введіть рядок');
-    let arr1 = user[0];
-    let arr5 = user[4];
-    let arr9 = user[8];
-    console.log(arr1, arr5, arr9)
+    let [a, , , ,b, , , ,c] = prompt('Введіть рядок');
+    console.log(a,b,c)
 }
 
 // Destruct default
 {
-    let user = prompt('Введіть рядок');
-    let arr2 = user[1];
-    let arr4 = user[3];
-    let arr5 = user[4];
-    if (arr2 === null || arr2 === ' ') {
-        arr2 = '!'
-    }
-    if (arr4 === null || arr4 === ' ') {
-        arr4 = '!'
-    }
-    if (arr5 === null || arr5 === ' ') {
-        arr5 = '!'
-    }
-    console.log(arr2, arr4, arr5)
+    let [,a = "!", ,b ="!",c ="!"] = prompt('Введіть рядок');
+    console.log(a,b,c)
 }
 
 // Multiply table rest
 {
     let arr = [[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8], [0, 3, 6, 9, 12], [0, 4, 8, 12, 16]];
-    delete arr[0];
-    arr[1] = arr[1].slice(-4);
-    arr[2] = arr[2].slice(-4);
-    arr[3] = arr[3].slice(-4);
-    arr[4] = arr[4].slice(-4);
-    [...somethingElse] = arr
-    console.log(arr)
+    let [a,[f,...otherB],[g,...otherC],[h,...otherD],[i,...otherE]] = arr
+    let newArr = [otherB,otherC,otherD,otherE]
+    console.log(newArr)
 }
 
 // For Alert
@@ -207,7 +188,7 @@
     const names = ["John", "Paul", "George", "Ringo"]
     let str = "<table>"
     for (const name of names) {
-        str += `<inline>${name + ' '}</inline>`
+        str += `<td>${name}</td>`
     }
     str += "</table>"
     document.write(str)
@@ -218,7 +199,7 @@
     const names = ["John", "Paul", "George", "Ringo"]
     let str = "<table>"
     for (const name of names) {
-        str += `<ol>${name + ' '}</ol>`
+        str += `<tr><td>${name}</tr></td>`
     }
     str += "</table>"
     document.write(str)
@@ -227,25 +208,24 @@
 // For Table Letters
 {
     const currencies = ["USD", "EUR", "GBP", "UAH"]
-    let str = "<table>"
-    for (const currency of currencies) {
-        str += `<table></table>`
-        for (const letter of currency) {
-            str += `<inline>${letter + ' '}</inline>`
+    let   str = "<table border = 1px>"
+    for (const currency of currencies){ 
+        str += `<tr></tr>`
+        for (const letter of currency){ 
+            str += `<td>${letter}</td>`
         }
     }
-    str += "</table>"
+    str+= "</table>"
     document.write(str)
 }
-
 // For Multiply Table
 {
     const arrs = [[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8], [0, 3, 6, 9, 12], [0, 4, 8, 12, 16]];
-    let str = "<table>"
+    let str = "<table border =1px>"
     for (const arr of arrs) {
-        str += `<table></table>`
+        str += `<tr></tr>`
         for (const number of arr) {
-            str += `<inline>${number + ' '}</inline>`
+            str += `<td>${number + ' '}</td>`
         }
     }
     str += "</table>"
@@ -255,12 +235,8 @@
 // Function Capitalize
 {
     const capitalize = str => {
-        let result = '';
-        let i = 0;
-        for (let character of str) {
-            result += (i === 0) ? character.toUpperCase() : character.toLowerCase()
-            i++
-        }
+        let result ;
+        result = str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase()
         return result
     }
     console.log(capitalize("cANBerRa"))
@@ -270,8 +246,16 @@
 {
     let str = prompt('Введіть рядок');
     let arr = str.split(` `);
-    let newArr = arr.map(x => x[0].toUpperCase() + x.slice(-(str.length - 1)).toLowerCase())
+    let newArr = arr.map(str => str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase())
     let newStr = newArr.join()
     console.log(newStr)
 }
 
+// Reduce HTML
+{
+    const currencies = ["USD", "EUR", "GBP", "UAH"]
+    let str = "<select>"
+    str += currencies.reduce((a, b) => ( a + `<option>${b}</option>`),"")
+    str += "</select>"
+    document.write(str)
+}
