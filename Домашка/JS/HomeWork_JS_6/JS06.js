@@ -78,7 +78,7 @@
                         children: ['Enter a data please:']
                     },
                     {
-                        tagName: 'br/'
+                        tagName: 'br'
                     },
                     {
                         tagName: 'input',
@@ -183,67 +183,149 @@
 
 // Copy delete
 {
+
     const car = {
         brand: 'Fiat',
         model: '500',
         color: 'red',
         weight: '850 kg'
     }
-    const { ...copyCar } = car
-    console.log(copyCar)
+    const deleteKey = prompt('Введіть ключ який Ви хотіли б видалити (brand,model,color або weight).');
+    const { [deleteKey]: someValue, ...newCar } = car;
+    console.log(newCar);
+
 }
 
 // Table
 {
     const persons = [
         {
-          name: 'Марія',
-          fatherName: 'Іванівна',
-          surname: 'Іванова',
-          sex: 'female'
+            name: 'Марія',
+            fatherName: 'Іванівна',
+            surname: 'Іванова',
+            sex: 'female'
         },
         {
-          name: 'Миколай',
-          fatherName: 'Іванович',
-          surname: 'Іванов',
-          age: 15
+            name: 'Миколай',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            age: 15
         },
         {
-          name: 'Петро',
-          fatherName: 'Іванович',
-          surname: 'Іванов',
-          married: true
+            name: 'Петро',
+            fatherName: 'Іванович',
+            surname: 'Іванов',
+            married: true
         },
-      ];
-      const columns = [];
-      for (const person of persons) {
+    ];
+    const columns = [];
+    for (const person of persons) {
         for (const key in person) {
-          if (!columns.includes(key)) {
-            columns.push(key);
-          }
+            if (!columns.includes(key)) {
+                columns.push(key);
+            }
         }
-      }
-      let table = '<table border = 1px><tr>';
-      for (const column of columns) {
+    }
+    let table = '<table border = 1px><tr>';
+    for (const column of columns) {
         table += `<th>${column}</th>`;
-      }
-      table += '</tr>';
-      for (const person of persons) {
+    }
+    table += '</tr>';
+    for (const person of persons) {
         table += '<tr>';
         for (const column of columns) {
-          const value = person[column] ? person[column] : '';
-          table += `<td>${value}</td>`;
+            const value = person[column] ? person[column] : '';
+            table += `<td>${value}</td>`;
         }
         table += '</tr>';
-      }
-      table += '</table>';
-      
-      document.write(table);    
+    }
+    table += '</table>';
+
+    document.write(table);
 }
 
+// Currency real rate
+{
+    fetch('https://open.er-api.com/v6/latest/USD').then(res => res.json())
+     .then(data => {
+            const firstCurrency = prompt('Введіть валюту яку будете міняти').toUpperCase().trim()
+            const secondCurrency = prompt('Введіть валюту яку хочете отримати').toUpperCase().trim()
+            const suma = +prompt('Введіть суму яку хочете обмінять')
+            if (firstCurrency === secondCurrency || firstCurrency === null || firstCurrency === undefined){
+                console.log('Введіть коректні дані')
+            }
+            else {
+                const {[firstCurrency]:yourCurrency,[secondCurrency]:ourCurrency}
+                if (yourCurrency!== undefined && ourCurrency !== undefined && (isNaN(suma)) && suma > 0) {
+                    const result = `${suma}*(${yourCurrency}/${ourCurrency})`
+                }
+            }
+            console.log(result) 
+         })
+}
 
+//Currency real rate
+{
+    fetch('https://open.er-api.com/v6/latest/USD')
+    .then(res => res.json())
+    .then(data => {
+        const firstCurrency = prompt('Введіть валюту яку будете міняти').toUpperCase().trim()
+        const secondCurrency = prompt('Введіть валюту яку хочете отримати').toUpperCase().trim()
+        const suma = Number(prompt('Введіть суму яку хочете обмінять'))
+        if (firstCurrency === secondCurrency || !firstCurrency){
+            console.log('Введіть коректні дані')
+        } else {
+            const yourCurrency = data.rates[firstCurrency]
+            const ourCurrency = data.rates[secondCurrency]
+            if (isNaN(suma) || suma <= 0 || !yourCurrency || !ourCurrency) {
+                console.log('Введіть коректні дані')
+            } else {
+                const result = suma * (ourCurrency / yourCurrency)
+                console.log(`Міняючи : ${suma} ${firstCurrency} Ви отримаєте: ${result} ${secondCurrency}`)
+            }
+        }
+    })
+}
 
+// Currency drop down
+{
+    fetch('https://open.er-api.com/v6/latest/USD')
+  .then(res => res.json())
+  .then(data => {
+    const { rates: currencies } = data;
+    const whichCurrency = Object.keys(currencies);
+    let html = '<select>';
+    for (const currency of whichCurrency) {
+      html += `<option>${currency}</option>`;
+    }
+    html += '</select>';
+    document.write(html);
+  });
+}
 
-
-
-
+// Currency table
+{
+    {
+        fetch('https://open.er-api.com/v6/latest/USD')
+      .then(res => res.json())
+      .then(data => {
+        const { rates: currencies } = data;
+        const whichCurrency = Object.keys(currencies);
+        let table = '<table><tr><th></th>';
+        for (const currency of whichCurrency) {
+          table += `<th>${currency}</th>`;
+        }
+        table += '</tr>';
+        for (const currency1 of whichCurrency) {
+          table += `<tr><td>${currency1}</td>`;
+          for (const currency2 of whichCurrency) {
+            const crossRate = 1 / currencies[currency1] * currencies[currency2];
+            table += `<td>${crossRate.toFixed(2)}</td>`;
+          }
+          table += '</tr>';
+        }
+        table += '</table>';
+        document.write(table);
+      });
+    }
+}
