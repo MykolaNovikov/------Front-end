@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS07</title>
+</head>
+
+<body>
+
+</body>
+<div style="font-size: 20px;color: blue;"> Завдання Divide </div>
+<br />
+<input type='number' id="firstNumber" />
+<input type='number' id="secondNumber" />
+<div id="divisionResult">
+    Результат поділу з'явиться тут
+</div>
+<br />
+<br />
+<div style="font-size: 20px;color: blue;"> Завдання Calc Live </div>
+<br />
+<label for="distance">Відстань, км:</label>
+<input type="number" id="distance" />
+<br />
+<label for="fuelConsumption">Розхід палива на 100 км:</label>
+<input type="number" id="fuelConsumption" />
+<br />
+<label for="fuelPrice">Ціна за літр палива:</label>
+<input type="number" id="fuelPrice" />
+<br />
+<div id="fuelCost"></div>
+
+<script>
+    const calculateFuelCost = (distance, fuelConsumption, fuelPrice) => {
+        const needFuel = distance / 100 * fuelConsumption;
+        const costOfFuel = needFuel * fuelPrice;
+        return { needFuel, costOfFuel };
+    };
+
+    const fuelCostResult = document.getElementById("fuelCost");
+    const distanceInput = document.getElementById("distance");
+    const fuelConsumptionInput = document.getElementById("fuelConsumption");
+    const fuelPriceInput = document.getElementById("fuelPrice");
+
+    const displayFuelCost = () => {
+        const distance = parseFloat(distanceInput.value);
+        const fuelConsumption = parseFloat(fuelConsumptionInput.value);
+        const fuelPrice = parseFloat(fuelPriceInput.value);
+
+        if (!distance || !fuelConsumption || !fuelPrice) {
+            fuelCostResult.innerHTML = "Будь ласка, введіть числові значення в усі поля";
+        } else {
+            const result = calculateFuelCost(distance, fuelConsumption, fuelPrice);
+            fuelCostResult.innerHTML = `Вам на паливо потрібно ${result.costOfFuel.toFixed(2)} грн`;
+        }
+    };
+
+    distanceInput.oninput = fuelConsumptionInput.oninput = fuelPriceInput.oninput = displayFuelCost;
+</script>
+<script>
+    const calcResult = () => {
+        const firstValue = parseFloat(firstNumber.value)
+        const secondValue = parseFloat(secondNumber.value)
+        const divisionResult = document.getElementById("divisionResult")
+        if (isNaN(firstValue) || isNaN(secondValue)) {
+            divisionResult.innerHTML = "Будь ласка, введіть числові значення в обидва поля"
+        } else if (secondValue === 0) {
+            divisionResult.innerHTML = "Ділення на нуль неможливе"
+        } else {
+            const result = Math.round(firstValue / secondValue)
+            divisionResult.innerHTML = `Результат поділу: ${result}`
+        }
+    }
+
+    firstNumber.oninput = secondNumber.oninput = calcResult
+</script>
+<script src="JS07.js"> </script>
+
+</html>
