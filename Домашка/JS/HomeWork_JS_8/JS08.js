@@ -32,19 +32,26 @@ let a = 10
 // comparison if
 {
     var age = +prompt("Скільки вам років?", "");
+
     if (age < 0) {
         alert("Неможливий вік");
-    } else if (age < 18) {
+    }
+    else if (age < 18) {
         alert("школяр");
-    } else if (age < 30) {
+    }
+    else if (age >= 18 && age < 30) {
         alert("молодь");
-    } else if (age < 45) {
+    }
+    else if (age >= 30 && age < 45) {
         alert("зрілість");
-    } else if (age < 60) {
+    }
+    else if (age >= 45 && age < 60) {
         alert("захід сонця");
-    } else if (age >= 60) {
+    }
+    else if (age >= 60) {
         alert("як пенсія?");
-    } else {
+    }
+    else {
         alert("чи кіборг, чи KERNESS");
     }
 }
@@ -116,15 +123,17 @@ let a = 10
 // switch: if
 {
     let color = prompt("Введіть колір", "");
-    if (color === 'red' || color === 'black') {
-        document.write("<div style='background-color: red;'>червоний</div>");
-        document.write("<div style='background-color: black; color: white;'>чорний</div>");
-    } else if (color === 'blue' || color === 'green') {
-        document.write("<div style='background-color: blue;'>синій</div>");
-        document.write("<div style='background-color: green;'>зелений</div>");
-    }
-    else {
-        document.write("<div style='background-color: gray;'>Я не зрозумів</div>");
+
+    if (color === "red") {
+    document.write("<div style='background-color: red;'>червоний</div>");
+    } else if (color === "black") {
+    document.write("<div style='background-color: black; color: white;'>чорний</div>");
+    } else if (color === "blue") {
+    document.write("<div style='background-color: blue;'>синій</div>");
+    } else if (color === "green") {
+    document.write("<div style='background-color: green;'>зелений</div>");
+    } else {
+    document.write("<div style='background-color: gray;'>Я не зрозумів</div>");
     }
 }
 
@@ -156,107 +165,107 @@ let a = 10
 // closure calc
 {
     fetch('https://open.er-api.com/v6/latest/USD')
-    .then(res => res.json())
-    .then(data => {
-      const rates = data.rates;
-      const container = document.createElement('div');
-      container.classList.add('currency-buttons-container');
-      document.body.appendChild(container);
-  
-      for (let currency in rates) {
-        const button = document.createElement('button');
-        button.innerHTML = currency;
-        button.onclick = () => {
-          const suma = +prompt(`Введіть сумму в ${currency}:`);
-          if (!suma || suma === null || suma === '') {
-              alert('Введіть коректну суму')
-          } else {
-            const convertedAmount = suma / rates[currency];
-            alert(`${suma} ${currency} дорівнюматиме ${convertedAmount.toFixed(2)} USD`);
-          } 
-        };
-        container.appendChild(button);
-      }
-    });
+        .then(res => res.json())
+        .then(data => {
+            const rates = data.rates;
+            const container = document.createElement('div');
+            container.classList.add('currency-buttons-container');
+            document.body.appendChild(container);
+
+            for (let currency in rates) {
+                const button = document.createElement('button');
+                button.innerHTML = currency;
+                button.onclick = () => {
+                    const suma = +prompt(`Введіть сумму в ${currency}:`);
+                    if (!suma || suma === null || suma === '') {
+                        alert('Введіть коректну суму')
+                    } else {
+                        const convertedAmount = suma / rates[currency];
+                        alert(`${suma} ${currency} дорівнюматиме ${convertedAmount.toFixed(2)} USD`);
+                    }
+                };
+                container.appendChild(button);
+            }
+        });
 }
 
 // closure calc 2
 fetch('https://open.er-api.com/v6/latest/USD')
-			.then(res => res.json())
-			.then(data => {
-				const rates = data.rates;
-				const from = document.getElementById('from');
-				const to = document.getElementById('to');
-				const rate = document.getElementById('rate');
-				const result = document.getElementById('result');
-				from.innerHTML = '';
-				to.innerHTML = '';
-				for (let currency in rates) {
-					const fromOption = document.createElement('option');
-					const toOption = document.createElement('option');
-					fromOption.innerText = currency;
-					toOption.innerText = currency;
-					fromOption.value = currency;
-					toOption.value = currency;
-					from.appendChild(fromOption);
-					to.appendChild(toOption);
-				}
-				from.onchange = () => {
-					const fromCurrency = from.value;
-					const toCurrency = to.value;
-					const exchangeRate = rates[toCurrency] / rates[fromCurrency];
-					rate.innerText = `1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`;
-					const suma = +document.getElementById('suma').value;
-					if (!isNaN(suma)) {
-						result.innerText ='Результат конвертації відобразиться тут:'
-					}
-				};
-				to.onchange = () => {
-					const fromCurrency = from.value;
-					const toCurrency = to.value;
-					const exchangeRate = rates[toCurrency] / rates[fromCurrency];
-					rate.innerText = `1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`;
-					const suma = +document.getElementById('suma').value;
-					if (!isNaN(suma)) {
-						result.innerText = 'Результат конвертації відобразиться тут:'
-					}
-				};
-				document.getElementById('suma').oninput = () => {
-					const fromCurrency = from.value;
-					const toCurrency = to.value;
-					const exchangeRate = rates[toCurrency] / rates[fromCurrency];
-					rate.innerText = `1 ${fromCurrency} = ${exchangeRate.toFixed(4)} ${toCurrency}`;
-					const suma = +document.getElementById('suma').value;
-					if (!isNaN(suma)) {
-						result.innerText = `При обміні ${suma} ${fromCurrency} ви отримаєте ${(suma * exchangeRate).toFixed(2)} ${toCurrency}`;
-					}
-				};
-			});
+    .then(res => res.json())
+    .then(data => {
+        const rates = data.rates;
+        const from = document.getElementById('from');
+        const to = document.getElementById('to');
+        const rate = document.getElementById('rate');
+        const result = document.getElementById('result');
+        from.innerHTML = '';
+        to.innerHTML = '';
+        for (let currency in rates) {
+            const fromOption = document.createElement('option');
+            const toOption = document.createElement('option');
+            fromOption.innerText = currency;
+            toOption.innerText = currency;
+            fromOption.value = currency;
+            toOption.value = currency;
+            from.appendChild(fromOption);
+            to.appendChild(toOption);
+        }
+        from.onchange = () => {
+            const fromCurrency = from.value;
+            const toCurrency = to.value;
+            const exchangeRate = rates[toCurrency] / rates[fromCurrency];
+            rate.innerText = `1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`;
+            const suma = +document.getElementById('suma').value;
+            if (!isNaN(suma)) {
+                result.innerText = 'Результат конвертації відобразиться тут:'
+            }
+        };
+        to.onchange = () => {
+            const fromCurrency = from.value;
+            const toCurrency = to.value;
+            const exchangeRate = rates[toCurrency] / rates[fromCurrency];
+            rate.innerText = `1 ${fromCurrency} = ${exchangeRate} ${toCurrency}`;
+            const suma = +document.getElementById('suma').value;
+            if (!isNaN(suma)) {
+                result.innerText = 'Результат конвертації відобразиться тут:'
+            }
+        };
+        document.getElementById('suma').oninput = () => {
+            const fromCurrency = from.value;
+            const toCurrency = to.value;
+            const exchangeRate = rates[toCurrency] / rates[fromCurrency];
+            rate.innerText = `1 ${fromCurrency} = ${exchangeRate.toFixed(4)} ${toCurrency}`;
+            const suma = +document.getElementById('suma').value;
+            if (!isNaN(suma)) {
+                result.innerText = `При обміні ${suma} ${fromCurrency} ви отримаєте ${(suma * exchangeRate).toFixed(2)} ${toCurrency}`;
+            }
+        };
+    });
 
 // countries and cities
 {
     fetch('https://raw.githubusercontent.com/russ666/all-countries-and-cities-json/master/countries.min.json')
-    .then(res => res.json())
-    .then(data => {
-        const countriesSelect = document.querySelector('#countries');
-        const citiesSelect = document.querySelector('#cities');
-        for (const country of Object.keys(data)) {
-            const option = document.createElement('option');
-            option.value = country;
-            option.innerText = country;
-            countriesSelect.appendChild(option);
-        }
-        const choosedCountry = () => {
-            citiesSelect.innerHTML = '';
-            const selectedCountry = countriesSelect.value;
-            for (const city of data[selectedCountry]) {
+        .then(res => res.json())
+        .then(data => {
+            const countriesSelect = document.querySelector('#countries');
+            const citiesSelect = document.querySelector('#cities');
+            for (const country of Object.keys(data)) {
                 const option = document.createElement('option');
-                option.value = city;
-                option.innerText = city;
-                citiesSelect.appendChild(option);
+                option.value = country;
+                option.innerText = country;
+                countriesSelect.appendChild(option);
             }
-        };
-        countriesSelect.addEventListener('change', choosedCountry);
-        choosedCountry();
-    })
+            const choosedCountry = () => {
+                citiesSelect.innerHTML = '';
+                const selectedCountry = countriesSelect.value;
+                for (const city of data[selectedCountry]) {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.innerText = city;
+                    citiesSelect.appendChild(option);
+                }
+            };
+            countriesSelect.addEventListener('change', choosedCountry);
+            choosedCountry();
+        })
 }
