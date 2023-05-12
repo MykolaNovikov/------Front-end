@@ -45,10 +45,10 @@
 // empty loop
 {
     while (true) {
-        let text = prompt('Можете вводити що завгодно. Натисніть "Отмена", щоб продовжити цикл,або "ОК" щоб завершити його');
+        let text = prompt('Можете вводити що завгодно. Натисніть "Скасувати", щоб продовжити цикл, або "ОК", щоб завершити його.');
 
         if (text === null) {
-            continue;
+
         } else {
             break;
         }
@@ -135,9 +135,9 @@
 {
     let size = 11;
     let halfNeedSize = Math.floor(size / 2);
-    for (let row = 0; row <= halfNeedSize; row++) {
-        let space = halfNeedSize - row;
-        let hashe = (row * 2) + 1;
+    for (let row = 0; row < size; row++) {
+        let space = Math.abs(halfNeedSize - row);
+        let hashe = size - (space * 2);
         let line = "";
 
         for (let i = 0; i < space; i++) {
@@ -152,29 +152,11 @@
             line += ".";
         }
 
-        console.log(line);
-    }
-    for (let row = halfNeedSize - 1; row >= 0; row--) {
-        let space = halfNeedSize - row;
-        let hashe = (row * 2) + 1;
-        let line = "";
-
-        for (let i = 0; i < space; i++) {
-            line += ".";
-        }
-
-        for (let i = 0; i < hashe; i++) {
-            line += "#";
-        }
-
-        for (let i = 0; i < space; i++) {
-            line += ".";
-        }
         console.log(line);
     }
 }
 
-//
+// read array of objects
 {
     function readArrayOfObjects() {
         let arr = [];
@@ -252,7 +234,6 @@
         headerCell.style.border = '1px solid black';
     }
     table.appendChild(headerRow);
-    let highlightedCell;
     for (let i = 1; i < 10; i++) {
         const row = document.createElement('tr');
         const rowHeaderCell = document.createElement('th');
@@ -264,14 +245,10 @@
             cell.innerText = i * j;
             cell.style.border = '1px solid black';
             cell.addEventListener('mouseover', function () {
-                if (highlightedCell) {
-                    highlightedCell.style.backgroundColor = '';
-                }
-                this.style.backgroundColor = 'grey';
+                cell.style.backgroundColor = 'grey';
             });
             cell.addEventListener('mouseout', function () {
-                highlightedCell = null;
-                this.style.backgroundColor = '';
+                cell.style.backgroundColor = '';
             });
             row.appendChild(cell);
         }
@@ -293,7 +270,6 @@
         headerCell.style.border = '1px solid black';
     }
     table.appendChild(headerRow);
-    let highlightedCell, highlightedRow, highlightedColumn;
     for (let i = 1; i < 10; i++) {
         const row = document.createElement('tr');
         const rowHeaderCell = document.createElement('th');
@@ -305,24 +281,6 @@
             cell.innerText = i * j;
             cell.style.border = '1px solid black';
             cell.addEventListener('mouseover', function () {
-                if (highlightedCell) {
-                    highlightedCell.style.backgroundColor = '';
-                }
-                if (highlightedRow) {
-                    for (let x = 0; x < 10; x++) {
-                        const rowCell = table.rows[highlightedRow].cells[x];
-                        rowCell.style.backgroundColor = '';
-                    }
-                }
-                if (highlightedColumn) {
-                    for (let x = 0; x < 10; x++) {
-                        const columnCell = table.rows[x].cells[highlightedColumn];
-                        columnCell.style.backgroundColor = '';
-                    }
-                }
-                highlightedCell = this;
-                highlightedRow = this.parentElement.rowIndex;
-                highlightedColumn = this.cellIndex;
                 for (let x = 0; x < 10; x++) {
                     const rowCell = this.parentElement.cells[x];
                     rowCell.style.backgroundColor = 'lightgrey';
@@ -334,9 +292,6 @@
                 this.style.backgroundColor = 'grey';
             });
             cell.addEventListener('mouseout', function () {
-                highlightedCell = null;
-                highlightedRow = null;
-                highlightedColumn = null;
                 for (let x = 0; x < 10; x++) {
                     const rowCell = this.parentElement.cells[x];
                     rowCell.style.backgroundColor = '';
