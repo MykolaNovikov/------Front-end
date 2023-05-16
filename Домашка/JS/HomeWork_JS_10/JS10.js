@@ -309,4 +309,258 @@
 }
 
 // personForm
+{
+    function createPersonClosure(name, surname) {
+        let fatherName;
+        let age;
+
+        function nameCheck(value) {
+            if (typeof value !== 'string' || value.charAt(0).toUpperCase() !== value.charAt(0)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function ageVerification(value) {
+            if (typeof value !== 'number' || value < 0 || value > 100) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function getName() {
+            return name;
+        }
+
+        function getSurname() {
+            return surname;
+        }
+
+        function getFatherName() {
+            return fatherName;
+        }
+
+        function getAge() {
+            return age;
+        }
+
+        function getFullName() {
+            let fullName = surname + ' ' + name;
+            if (fatherName) {
+                fullName += ' ' + fatherName;
+            }
+            return fullName;
+        }
+
+        function setName(newName) {
+            if (nameCheck(newName)) {
+                name = newName;
+            }
+            return name;
+        }
+
+        function setSurname(newSurname) {
+            if (nameCheck(newSurname)) {
+                surname = newSurname;
+            }
+            return surname;
+        }
+
+        function setFatherName(newFatherName) {
+            if (nameCheck(newFatherName)) {
+                fatherName = newFatherName;
+            }
+            return fatherName;
+        }
+
+        function setAge(newAge) {
+            if (ageVerification(newAge)) {
+                age = newAge;
+            }
+            return age;
+        }
+
+        function setFullName(newFullName) {
+            const names = newFullName.split(' ');
+            if (names.length >= 2 && nameCheck(names[0]) && nameCheck(names[1])) {
+                surname = names[0];
+                name = names[1];
+                fatherName = names[2];
+            }
+            return getFullName();
+        }
+
+        return {
+            getName,
+            getSurname,
+            getFatherName,
+            getAge,
+            getFullName,
+            setName,
+            setSurname,
+            setFatherName,
+            setAge,
+            setFullName
+        };
+    }
+
+    const b = createPersonClosure("Ганна", "Іванова");
+    b.setAge(15);
+    b.setFullName("Іванова Ганна Миколаївна");
+
+    function personForm(parent, person) {
+        const nameInput = document.createElement('input');
+        const surnameInput = document.createElement('input');
+        const fatherNameInput = document.createElement('input');
+        const fullNameInput = document.createElement('input');
+        const ageInput = document.createElement('input');
+
+        nameInput.value = person.getName();
+        surnameInput.value = person.getSurname();
+        fatherNameInput.value = person.getFatherName();
+        ageInput.value = person.getAge();
+        fullNameInput.value = person.getFullName();
+
+        parent.appendChild(nameInput);
+        parent.appendChild(surnameInput);
+        parent.appendChild(fatherNameInput);
+        parent.appendChild(ageInput);
+        parent.appendChild(fullNameInput);
+
+        nameInput.oninput = () => {
+            const newName = nameInput.value;
+            const updatedName = person.setName(newName);
+            nameInput.value = updatedName;
+            fullNameInput.value = person.getFullName();
+        };
+
+        surnameInput.oninput = () => {
+            const newSurname = surnameInput.value;
+            const updatedSurname = person.setSurname(newSurname);
+            surnameInput.value = updatedSurname;
+            fullNameInput.value = person.getFullName();
+        };
+
+        fatherNameInput.oninput = () => {
+            const newFatherName = fatherNameInput.value;
+            const updatedFatherName = person.setFatherName(newFatherName);
+            fatherNameInput.value = updatedFatherName;
+            fullNameInput.value = person.getFullName();
+        };
+
+        ageInput.type = 'number';
+        ageInput.oninput = () => {
+            const newAge = parseInt(ageInput.value);
+            if (newAge >= 0 && newAge <= 100) {
+                const updatedAge = person.setAge(newAge);
+                ageInput.value = updatedAge;
+            } else {
+                ageInput.value = ' ';
+            }
+        };
+
+        fullNameInput.oninput = () => {
+            const newFullName = fullNameInput.value;
+            const updatedFullName = person.setFullName(newFullName);
+            nameInput.value = person.getName();
+            surnameInput.value = person.getSurname();
+            fatherNameInput.value = person.getFatherName();
+            fullNameInput.value = updatedFullName;
+        };
+    }
+
+    const parentElement = document.getElementById('personForm');
+    personForm(parentElement, b);
+}
+
+
 // getSetForm
+{
+    let car;
+    {
+        let brand = 'BMW', model = 'X5', volume = 2.4
+        car = {
+            getBrand() {
+                return brand
+            },
+            setBrand(newBrand) {
+                if (newBrand && typeof newBrand === 'string') {
+                    brand = newBrand
+                }
+                return brand
+            },
+
+            getModel() {
+                return model
+            },
+            setModel(newModel) {
+                if (newModel && typeof newModel === 'string') {
+                    model = newModel
+                }
+                return model
+            },
+
+            getVolume() {
+                return volume
+            },
+            setVolume(newVolume) {
+                newVolume = +newVolume
+                if (newVolume && newVolume > 0 && newVolume < 20) {
+                    volume = newVolume
+                }
+                return volume
+            },
+
+            getTax() {
+                return volume * 100
+            }
+        }
+    }
+
+    function getSetForm(parent, getSet) {
+        const inputs = {};
+
+        const updateInputs = () => {
+            for (const fieldName in inputs) {
+                const input = inputs[fieldName];
+                const getMethod = 'get' + fieldName;
+                if (getMethod in getSet) {
+                    input.value = getSet[getMethod]();
+                }
+            }
+        };
+
+        for (const getSetName in getSet) {
+            const getOrSet = getSetName.substring(0, 3);
+            const fieldName = getSetName.substring(3);
+            const setKey = 'set' + fieldName;
+            const getKey = 'get' + fieldName;
+
+            const input = document.createElement('input');
+            input.placeholder = fieldName;
+            input.type = typeof getSet[getKey]() === 'number' ? 'number' : 'text';
+
+            parent.appendChild(input);
+
+            inputs[fieldName] = input;
+
+            input.oninput = () => {
+                const value = input.value;
+                if (getOrSet === 'set') {
+                    getSet[setKey](value);
+                } else {
+                    input.value = getSet[getKey]();
+                }
+            };
+        }
+
+        updateInputs();
+
+        return updateInputs;
+    }
+
+    getSetForm(document.body, car)
+    getSetForm(document.body, createPersonClosure('Анон', "Анонов"))
+}

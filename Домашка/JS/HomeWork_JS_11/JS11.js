@@ -87,3 +87,44 @@
 }
 
 // checkResult
+{
+    function checkResult(original, validator) {
+        function wrapper(...params) {
+            const result = original.call(this, ...params);
+            if (validator(result)) {
+                return result;
+            } else {
+                return wrapper.call(this, ...params);
+            }
+        }
+        return wrapper;
+    }
+    const numberPrompt = checkResult(prompt, x => !isNaN(+x));
+    let number = +numberPrompt("Введіть число", "0");
+
+    const gamePrompt = checkResult(prompt, x => ['камень', 'ножиці', 'папір'].includes(x.toLowerCase()));
+    const turn = gamePrompt("Введіть щось зі списку: 'камень', 'ножиці', 'папір'");
+    
+    const RandomHigh = checkResult(() => Math.random(), x => x >= 0.5 && x <= 1);
+    
+    const AlwaysSayYes = checkResult(confirm, x => x);
+    
+    const respectMe = checkResult((name, surname, fatherName) => {
+        name = prompt("Введіть Ваше ім'я");
+        fatherName = prompt('Введіть Ваше по-батькові');
+        surname = prompt('Введіть Ваше прізвище');
+        const arr = [name, fatherName, surname];
+        const newArr = arr.map(arr => arr.slice(0, 1).toUpperCase() + arr.slice(1).toLowerCase());
+        name = newArr[0];
+        fatherName = newArr[1];
+        surname = newArr[2];
+        const fullName = surname + ' ' + name + ' ' + fatherName;
+        return { name, surname, fatherName, fullName };
+    }, ({ name, surname, fatherName }) => name && surname && fatherName);
+    
+    console.log(number);
+    console.log(turn);
+    console.log(RandomHigh());
+    console.log(AlwaysSayYes());
+    console.log(respectMe());
+}
