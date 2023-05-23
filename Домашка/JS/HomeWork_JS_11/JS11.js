@@ -90,12 +90,11 @@
 {
     function checkResult(original, validator) {
         function wrapper(...params) {
-            const result = original.call(this, ...params);
-            if (validator(result)) {
-                return result;
-            } else {
-                return wrapper.call(this, ...params);
+            let result = original.call(this, ...params);
+            while (!validator(result)) {
+                result = original.call(this, ...params);
             }
+            return result;
         }
         return wrapper;
     }

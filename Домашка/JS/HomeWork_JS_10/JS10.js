@@ -519,48 +519,50 @@
         }
     }
 
-    function getSetForm(parent, getSet) {
-        const inputs = {};
-
-        const updateInputs = () => {
-            for (const fieldName in inputs) {
-                const input = inputs[fieldName];
-                const getMethod = 'get' + fieldName;
-                if (getMethod in getSet) {
-                    input.value = getSet[getMethod]();
-                }
-            }
-        };
-
-        for (const getSetName in getSet) {
-            const getOrSet = getSetName.substring(0, 3);
-            const fieldName = getSetName.substring(3);
-            const setKey = 'set' + fieldName;
-            const getKey = 'get' + fieldName;
-
-            const input = document.createElement('input');
-            input.placeholder = fieldName;
-            input.type = typeof getSet[getKey]() === 'number' ? 'number' : 'text';
-
-            parent.appendChild(input);
-
-            inputs[fieldName] = input;
-
-            input.oninput = () => {
-                const value = input.value;
-                if (getOrSet === 'set') {
-                    getSet[setKey](value);
-                } else {
-                    input.value = getSet[getKey]();
+        function getSetForm(parent, getSet) {
+            const inputs = {};
+        
+            const updateInputs = () => {
+                for (const fieldName in inputs) {
+                    const input = inputs[fieldName];
+                    const getMethod = 'get' + fieldName;
+                    if (getMethod in getSet) {
+                        input.value = getSet[getMethod]();
+                    }
                 }
             };
+        
+            for (const getSetName in getSet) {
+                const getOrSet = getSetName.substring(0, 3);
+                const fieldName = getSetName.substring(3);
+                const setKey = 'set' + fieldName;
+                const getKey = 'get' + fieldName;
+        
+                let input = inputs[fieldName];
+                if (!input) {
+                    input = document.createElement('input');
+                    input.placeholder = fieldName;
+                    input.type = typeof getSet[getKey]() === 'number' ? 'number' : 'text';
+                    parent.appendChild(input);
+                    inputs[fieldName] = input;
+                }
+        
+                input.oninput = () => {
+                    const value = input.value;
+                    if (getOrSet === 'set') {
+                        getSet[setKey](value);
+                    } else {
+                        input.value = getSet[getKey]();
+                    }
+                };
+            }
+        
+            updateInputs();
+        
+            return updateInputs;
         }
-
-        updateInputs();
-
-        return updateInputs;
-    }
-
-    getSetForm(document.body, car)
-    getSetForm(document.body, createPersonClosure('Анон', "Анонов"))
+        
+        getSetForm(document.body, car);
+        getSetForm(document.body, createPersonClosure('Анон', "Анонов"));
+    
 }
