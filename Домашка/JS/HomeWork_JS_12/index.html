@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Каса: 0 грн</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Асортимент товару</h2>
+
+        <table>
+            <tr>
+                <th>Товар</th>
+                <th>Кількість</th>
+                <th>Ціна (грн/шт)</th>
+            </tr>
+            <tr>
+                <td id="beer">Пиво</td>
+                <td id="beerQuantity"></td>
+                <td id="beerPrice"></td>
+            </tr>
+            <tr>
+                <td id="chips">Чіпси</td>
+                <td id="chipsQuantity"></td>
+                <td id="chipsPrice"></td>
+            </tr>
+            <tr>
+                <td id="cigarettes">Сіги</td>
+                <td id="cigarettesQuantity"></td>
+                <td id="cigarettesPrice"></td>
+            </tr>
+        </table>
+
+        <div class="form-group">
+            <label for="productSelect">Товар:</label>
+            <select id="productSelect">
+                <option value="beer">Пиво</option>
+                <option value="chips">Чіпси</option>
+                <option value="cigarettes">Сіги</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="quantityInput">Кількість:</label>
+            <input type="number" id="quantityInput" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="moneyInput">Скільки грошей Ви даєте? Тільки здала касу,тому ,будь ласка, дайте без решти:</label>
+            <input type="number" id="moneyInput" min="0">
+        </div>
+
+        <div class="form-group">
+            <button id="buyButton">Купити</button>
+        </div>
+            <span id="cash"></span>
+    </div>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            background-image: url(https://bizrating.com.ua/images/catalog/1975/953-2c2fcc4d5ffe2598af0fa8adcfbf82b0.jpg);
+            background-size: 100%;
+            overflow-y: hidden;
+        }
+    
+        table {
+            border: solid black;
+            width: 100%;
+        }
+    
+        th,
+        td {
+            text-align: center;
+            padding: 8px;
+            border-bottom: 1px solid grey;
+        }
+    
+        th {
+            background-color: lightgrey;
+        }
+    
+        .container {
+            max-width: 300px;
+            margin: 265px auto;
+            padding: 10px;
+            background-color: antiquewhite;
+        }
+    
+        .form-group {
+            margin-bottom: 10px;
+        }
+    
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    
+        #productSelect,
+        #buyButton {
+            padding: 8px;
+            width: 100%;
+        }
+    
+        #quantityInput {
+            padding: 8px;
+            width: 94%;
+        }
+    
+        .form-group button {
+            background-color: blue;
+            color: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+    
+        .cash-container {
+            margin-top: 20px;
+        }
+    </style>
+</body>
+    <script src="JS12.js"></script>
+</html>
