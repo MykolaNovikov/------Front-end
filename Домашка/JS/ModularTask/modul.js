@@ -608,6 +608,14 @@ function updateHistory() {
     }
 }
 
+function totalCartQuantity(cart) {
+    let totalQuantity = 0;
+    for (const key in cart) {
+      totalQuantity += cart[key].count;
+    }
+    return totalQuantity;
+  }
+
 store.subscribe(updateHistory);
 
 store.subscribe(() => console.log(store.getState()))
@@ -658,8 +666,11 @@ store.subscribe(() => {
     userRegister.innerHTML = `<a href ="#/register/">Зареєструватися</a>`
 })
 store.subscribe(() => {
-    cartIcon.innerHTML = `<a href="#/cart/"><img src = https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShR0LMDtFgmI1BcNEAB5qCWL7y3mvzi3_SwQ&usqp=CAU></a>`
-})
+    const cartItems = store.getState().cart;
+    const totalQuantity = totalCartQuantity(cartItems);
+    cartIcon.innerHTML = `<a href="#/cart/"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShR0LMDtFgmI1BcNEAB5qCWL7y3mvzi3_SwQ&usqp=CAU"></a>
+                         <div class="cart-quantity">${totalQuantity}</div>`;
+});
 
 window.onhashchange = () => {
     const [, route, _id] = location.hash.split('/')
